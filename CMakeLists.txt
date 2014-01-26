@@ -30,6 +30,7 @@ list (APPEND ZLIB_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../zlib/build")
 find_package(ZLIB REQUIRED)
 
 include_directories(${ZLIB_INCLUDE_DIR})
+include_directories(${ZLIB_INCLUDE_DIR}/build)
 
 if(NOT WIN32)
   find_library(M_LIBRARY
