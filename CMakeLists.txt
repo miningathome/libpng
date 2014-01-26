@@ -20,8 +20,15 @@ set(PNGLIB_RELEASE 8)
 set(PNGLIB_NAME libpng${PNGLIB_MAJOR}${PNGLIB_MINOR})
 set(PNGLIB_VERSION ${PNGLIB_MAJOR}.${PNGLIB_MINOR}.${PNGLIB_RELEASE})
 
+# Unify make and MSVC builds (single output directory; get rid of Debug/ Release/)
+include (${CMAKE_CURRENT_SOURCE_DIR}/cmake/unify.cmake)
+
 # needed packages
+# help find_package a bit to find our zlib first
+list (APPEND ZLIB_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../zlib")
+list (APPEND ZLIB_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../zlib/build")
 find_package(ZLIB REQUIRED)
+
 include_directories(${ZLIB_INCLUDE_DIR})
 
 if(NOT WIN32)
