@@ -12,7 +12,15 @@ set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true)
 set(CMAKE_CONFIGURATION_TYPES "Release;Debug;MinSizeRel;RelWithDebInfo")
 
 project(libpng C)
-enable_testing()
+
+option(PNG_SHARED "Build shared lib" ON)
+option(PNG_STATIC "Build static lib" ON)
+option(PNG_TESTS  "Build libpng tests" ON)
+option(ENABLE_TESTING "Enable Testing" ON)
+
+if (ENABLE_TESTING)
+  enable_testing()
+endif()
 
 set(PNGLIB_MAJOR 1)
 set(PNGLIB_MINOR 6)
@@ -47,18 +55,19 @@ else()
 endif()
 
 # COMMAND LINE OPTIONS
-if(DEFINED PNG_SHARED)
-  option(PNG_SHARED "Build shared lib" ${PNG_SHARED})
-else()
-  option(PNG_SHARED "Build shared lib" ON)
-endif()
-if(DEFINED PNG_STATIC)
-  option(PNG_STATIC "Build static lib" ${PNG_STATIC})
-else()
-  option(PNG_STATIC "Build static lib" ON)
-endif()
+# if(DEFINED PNG_SHARED)
+#   option(PNG_SHARED "Build shared lib" ${PNG_SHARED})
+# else()
+#   option(PNG_SHARED "Build shared lib" ON)
+# endif()
 
-option(PNG_TESTS  "Build libpng tests" YES)
+# if(DEFINED PNG_STATIC)
+#   option(PNG_STATIC "Build static lib" ${PNG_STATIC})
+# else()
+#   option(PNG_STATIC "Build static lib" ON)
+# endif()
+
+# option(PNG_TESTS  "Build libpng tests" YES)
 
 # Many more configuration options could be added here
 option(PNG_DEBUG         "Build with debug output" NO)
@@ -68,7 +77,7 @@ option(PNGARG            "Disable ANSI-C prototypes" NO)
 set(PNG_LIB_NAME png${PNGLIB_MAJOR}${PNGLIB_MINOR})
 
 # to distinguish between debug and release lib
-set(CMAKE_DEBUG_POSTFIX "d")
+# set(CMAKE_DEBUG_POSTFIX "d")
 
 # Use the prebuilt pnglibconf.h file from the scripts folder
 # TODO: fix this by building with awk; without this no cmake build can be
